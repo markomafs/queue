@@ -12,6 +12,10 @@
         {
             "name": "markomafs",
             "email": "marco.souza@tricae.com.br"
+        },
+        {
+            "name": "tonicospinelli",
+            "email": "antonio.spinelli@kanui.com.br"
         }
     ],
     "minimum-stability": "RC"
