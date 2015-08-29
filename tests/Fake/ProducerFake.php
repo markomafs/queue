@@ -2,7 +2,6 @@
 
 namespace QueueTest\Fake;
 
-use Queue\Adapter\Message\MessageInterface;
 use Queue\Producer;
 
 /**
@@ -22,14 +21,5 @@ class ProducerFake extends Producer
     public function getWorkingExchangeName()
     {
         return 'amqp.direct';
-    }
-
-    /**
-     * @param mixed $message
-     * @return MessageInterface
-     */
-    public function handleMessage($message)
-    {
-        return $this->queueAdapter()->buildMessage($message);
     }
 }
