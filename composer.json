@@ -8,6 +8,12 @@
     "require-dev": {
         "phpunit/phpunit": "4.2.*"
     },
+    "autoload": {
+        "psr-4": {
+            "Queue\\": "src",
+            "QueueTest\\": "tests"
+        }
+    },
     "authors": [
         {
             "name": "markomafs",
