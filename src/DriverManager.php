@@ -22,7 +22,7 @@ class DriverManager
      */
     private static function getClassName($driverName)
     {
-        if (!static::$drivers[$driverName]) {
+        if (!isset(static::$drivers[$driverName])) {
             throw QueueException::unknownDriver($driverName, static::getAvailableDrivers());
         }
         return static::$drivers[$driverName];

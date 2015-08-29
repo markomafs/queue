@@ -2,22 +2,34 @@
 
 namespace QueueTest\Unit;
 
-use Queue\Adapter\Configuration\RabbitMqConfig;
-use Queue\Adapter\RabbitMqAdapter;
 use Queue\Configuration;
 use Queue\Driver;
 use Queue\DriverManager;
-use Queue\Manager;
-use QueueTest\Fake\Adapter\Configuration\RabbitMqConfigFake;
+use Queue\QueueException;
 
 class DriverManagerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInstanceOf()
+    /**
+     * @expectedException \Queue\QueueException
+     */
+    public function testUnknownDriver()
     {
-        $connection = DriverManager::getConnection(new Configuration(Driver::AMQP, '33.33.33.100', 5672, 'kanui', 'kanui'));
+        DriverManager::getConnection(new Configuration('test', '', null, '', ''));
+    }
 
+    /**
+     * @expectedException \Queue\QueueException
+     */
+    public function testInvalidWrapperClass()
+    {
+        $options = array('wrapperClass' => '\stdClass');
+        DriverManager::getConnection(new Configuration(Driver::AMQP, '', null, '', '', $options));
+    }
 
-
+    public function testCreateAConnectionObject()
+    {
+        $connection = DriverManager::getConnection(new Configuration(Driver::AMQP, '', null, '', ''));
+        $this->assertInstanceOf('Queue\Connection', $connection);
     }
 }
  
