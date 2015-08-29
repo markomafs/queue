@@ -8,7 +8,6 @@
 namespace Queue\Driver;
 
 use Queue\AbstractQueue;
-use Queue\Message\MessageInterface;
 
 interface Connection
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Queue\Message;
+namespace Queue\Driver;
 
 interface MessageInterface
 {

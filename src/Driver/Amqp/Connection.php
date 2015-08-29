@@ -6,7 +6,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
 use Queue\AbstractQueue;
 use Queue\ConfigurationInterface;
-use Queue\Message\MessageInterface;
+use Queue\Driver\MessageInterface;
 
 class Connection implements \Queue\Driver\Connection
 {

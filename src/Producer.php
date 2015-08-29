@@ -7,14 +7,14 @@
 
 namespace Queue;
 
-use Queue\Message\MessageInterface;
+use Queue\Driver\MessageInterface;
 
 abstract class Producer extends AbstractQueue implements ProducerInterface
 {
 
     /**
      * @param string $message
-     * @return \Queue\Message\MessageInterface
+     * @return MessageInterface
      */
     public function prepare($message)
     {

@@ -19,7 +19,7 @@ $connection = DriverManager::getConnection($configuration);
 
 $queue = new ProducerFake($connection);
 
-$mesage = $queue->prepare(123);
+$message = $queue->prepare(123);
 
 $queue->publish($message);
 ```

@@ -7,7 +7,7 @@
 
 namespace Queue;
 
-use Queue\Message\MessageInterface;
+use Queue\Driver\MessageInterface;
 
 interface ProducerInterface
 {

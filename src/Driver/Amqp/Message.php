@@ -3,7 +3,7 @@
 namespace Queue\Driver\Amqp;
 
 use PhpAmqpLib\Message\AMQPMessage;
-use Queue\Message\MessageInterface;
+use Queue\Driver\MessageInterface;
 
 class Message extends AMQPMessage implements MessageInterface
 {

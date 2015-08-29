@@ -3,7 +3,7 @@
 namespace Queue;
 
 use Queue\Driver\Connection as DriverConnection;
-use Queue\Message\MessageInterface;
+use Queue\Driver\MessageInterface;
 
 class Connection implements DriverConnection
 {
