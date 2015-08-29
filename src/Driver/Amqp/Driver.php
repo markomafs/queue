@@ -29,6 +29,6 @@ class Driver implements \Queue\Driver
      */
     public function getName()
     {
-        return 'amqp';
+        return self::AMQP;
     }
 }

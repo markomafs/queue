@@ -11,4 +11,12 @@ class Message extends AMQPMessage implements MessageInterface
     {
         parent::__construct($body, $properties);
     }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
 }

@@ -9,14 +9,8 @@ namespace Queue;
 
 use Queue\Driver\MessageInterface;
 
-interface ProducerInterface
+interface ProducerInterface extends InterfaceQueue
 {
-    /**
-     * @param string $message
-     * @return MessageInterface
-     */
-    public function prepare($message);
-
     /**
      * @param MessageInterface $message
      * @return void

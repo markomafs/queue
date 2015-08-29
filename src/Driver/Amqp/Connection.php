@@ -4,9 +4,13 @@ namespace Queue\Driver\Amqp;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 use Queue\AbstractQueue;
 use Queue\ConfigurationInterface;
+use Queue\ConsumerInterface;
 use Queue\Driver\MessageInterface;
+use Queue\InterfaceQueue;
+use Queue\ProducerInterface;
 
 class Connection implements \Queue\Driver\Connection
 {
@@ -57,18 +61,35 @@ class Connection implements \Queue\Driver\Connection
         return new Message($message, $properties);
     }
 
-    public function publish(MessageInterface $message, AbstractQueue $queue)
+    public function publish(MessageInterface $message, ProducerInterface $producer)
     {
-        $this->declareQueue($queue);
-        $channel = $this->getChannel($queue);
-        $channel->basic_publish($message, $queue->getWorkingExchangeName());
+        $this->declareQueue($producer);
+        $channel = $this->getChannel($producer);
+        $channel->basic_publish($message, $producer->getWorkingExchangeName());
     }
 
     /**
-     * @param AbstractQueue $queue
+     * @param ConsumerInterface $consumer
+     * @return MessageInterface|null
+     */
+    public function fetchOne(ConsumerInterface $consumer)
+    {
+        $this->declareQueue($consumer);
+        $channel = $this->getChannel($consumer);
+
+        $message = $channel->basic_get($consumer->getWorkingQueueName(), AbstractQueue::QUEUE_ACK);
+
+        if (!$message) {
+            return null;
+        }
+        return $this->prepare($message->body);
+    }
+
+    /**
+     * @param InterfaceQueue $queue
      * @return AMQPChannel
      */
-    protected function getChannel(AbstractQueue $queue)
+    protected function getChannel(InterfaceQueue $queue)
     {
         if (!isset($this->channels[$queue->getWorkingQueueName()])) {
             $this->channels[$queue->getWorkingQueueName()] = $this->connection->channel();
@@ -76,7 +97,7 @@ class Connection implements \Queue\Driver\Connection
         return $this->channels[$queue->getWorkingQueueName()];
     }
 
-    protected function declareQueue(AbstractQueue $queue)
+    protected function declareQueue(InterfaceQueue $queue)
     {
         $channel = $this->getChannel($queue);
         $channel->queue_declare(

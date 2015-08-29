@@ -5,7 +5,6 @@ namespace QueueTest\Unit;
 use Queue\Configuration;
 use Queue\Driver;
 use Queue\DriverManager;
-use Queue\Exception\InvalidWrapperClassException;
 
 class DriverManagerTest extends \PHPUnit_Framework_TestCase
 {

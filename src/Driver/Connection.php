@@ -7,7 +7,8 @@
 
 namespace Queue\Driver;
 
-use Queue\AbstractQueue;
+use Queue\ConsumerInterface;
+use Queue\ProducerInterface;
 
 interface Connection
 {
@@ -20,10 +21,10 @@ interface Connection
 
     /**
      * @param MessageInterface $message
-     * @param AbstractQueue $queue
-     * @return mixed
+     * @param ProducerInterface $producer
+     * @return void
      */
-    public function publish(MessageInterface $message, AbstractQueue $queue);
+    public function publish(MessageInterface $message, ProducerInterface $producer);
 
     /**
      * @param string $message
@@ -31,4 +32,10 @@ interface Connection
      * @return MessageInterface
      */
     public function prepare($message, array $properties = array());
+
+    /**
+     * @param ConsumerInterface $consumer
+     * @return MessageInterface|null
+     */
+    public function fetchOne(ConsumerInterface $consumer);
 }

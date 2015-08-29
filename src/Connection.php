@@ -63,12 +63,12 @@ class Connection implements DriverConnection
 
     /**
      * @param MessageInterface $message
-     * @param AbstractQueue $queue
-     * @return mixed
+     * @param ProducerInterface $producer
+     * @return void
      */
-    public function publish(MessageInterface $message, AbstractQueue $queue)
+    public function publish(MessageInterface $message, ProducerInterface $producer)
     {
-        $this->connect()->publish($message, $queue);
+        $this->connect()->publish($message, $producer);
     }
 
     /**
@@ -79,5 +79,14 @@ class Connection implements DriverConnection
     public function prepare($message, array $properties = array())
     {
         return $this->connect()->prepare($message, $properties);
+    }
+
+    /**
+     * @param ConsumerInterface $consumer
+     * @return MessageInterface|null
+     */
+    public function fetchOne(ConsumerInterface $consumer)
+    {
+        return $this->connect()->fetchOne($consumer);
     }
 }
