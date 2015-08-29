@@ -7,22 +7,26 @@
 
 namespace Queue;
 
-use Queue\Adapter\Message\InterfaceMessage;
+use Queue\Driver\MessageInterface;
 
-abstract class Producer extends AbstractQueue
+abstract class Producer extends AbstractQueue implements ProducerInterface
 {
-    /**
-     * @param mixed $message
-     * @return InterfaceMessage
-     */
-    abstract public function handleMessage($message);
 
     /**
-     * @param InterfaceMessage $message
+     * @param string $message
+     * @return MessageInterface
+     */
+    public function prepare($message)
+    {
+        return $this->getConnection()->prepare($message);
+    }
+
+    /**
+     * @param MessageInterface $message
      * @return void
      */
-    final public function publish(InterfaceMessage $message)
+    final public function publish(MessageInterface $message)
     {
-        $this->queueAdapter()->publish($this, $message);
+        $this->getConnection()->publish($message, $this);
     }
-} 
+}

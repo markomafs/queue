@@ -7,41 +7,35 @@
 
 namespace Queue;
 
-
-use Queue\Adapter\InterfaceAdapter;
+use Queue\Driver\Connection as DriverConnection;
 
 abstract class AbstractQueue implements InterfaceQueue
 {
 
     /**
-     * @var InterfaceAdapter
+     * @var DriverConnection
      */
-    private $queueAdapter;
+    private $connection;
 
-    public function __construct(InterfaceAdapter $queueAdapter)
+    public function __construct(DriverConnection $connection)
     {
-        $this->queueAdapter = $queueAdapter;
+        $this->connection = $connection;
     }
 
     /**
-     * @return InterfaceAdapter
+     * @return DriverConnection
      */
-    public function queueAdapter()
+    public function getConnection()
     {
-        return $this->queueAdapter;
+        return $this->connection;
     }
 
     abstract public function getWorkingQueueName();
 
     abstract public function getWorkingExchangeName();
 
-    public function close()
-    {
-        $this->queueAdapter->close();
-    }
-
     public function getQueueArguments()
     {
         return array();
     }
-} 
+}

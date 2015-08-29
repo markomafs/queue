@@ -7,7 +7,7 @@
 
 namespace Queue;
 
-use Queue\Adapter\InterfaceAdapter;
+use Queue\Driver\MessageInterface;
 
 interface InterfaceQueue
 {
@@ -33,14 +33,7 @@ interface InterfaceQueue
     const MESSAGE_NON_PERSISTENT = 1;
     const MESSAGE_PERSISTENT = 2;
 
-    /**
-     * @return InterfaceAdapter
-     */
-    public function queueAdapter();
-
     public function getWorkingQueueName();
 
     public function getWorkingExchangeName();
-
-    public function close();
-} 
+}
