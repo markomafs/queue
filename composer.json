@@ -6,7 +6,9 @@
         "videlalvaro/php-amqplib": "2.4.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.2.*"
+        "phpunit/phpunit": "4.2.*",
+        "phpmd/phpmd": "@stable",
+        "squizlabs/php_codesniffer": "@stable"
     },
     "autoload": {
         "psr-4": {
@@ -24,5 +26,10 @@
             "email": "antonio.spinelli@kanui.com.br"
         }
     ],
-    "minimum-stability": "RC"
+    "minimum-stability": "RC",
+    "scripts": {
+        "test": "phpunit -c tests/phpunit.xml",
+        "phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpcs": "phpcs --standard=PSR2 src"
+    }
 }
