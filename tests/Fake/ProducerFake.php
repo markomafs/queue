@@ -2,7 +2,7 @@
 
 namespace QueueTest\Fake;
 
-use Queue\Adapter\Message\InterfaceMessage;
+use Queue\Adapter\Message\MessageInterface;
 use Queue\Producer;
 
 /**
@@ -26,7 +26,7 @@ class ProducerFake extends Producer
 
     /**
      * @param mixed $message
-     * @return InterfaceMessage
+     * @return MessageInterface
      */
     public function handleMessage($message)
     {

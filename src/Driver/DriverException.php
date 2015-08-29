@@ -4,9 +4,9 @@
  * @since 2015.08.28
  *
  */
-namespace Queue\Adapter\Message;
 
-interface InterfaceMessage
+namespace Queue\Driver;
+
+interface DriverException
 {
-
-} 
+}
