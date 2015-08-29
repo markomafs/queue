@@ -29,8 +29,14 @@ class Configuration implements ConfigurationInterface
      */
     private $options;
 
-    public function __construct($driver, $hostname = null, $port = null, $username = null, $password = null, array $options = array())
-    {
+    public function __construct(
+        $driver,
+        $hostname = null,
+        $port = null,
+        $username = null,
+        $password = null,
+        array $options = array()
+    ) {
         $this->driver = $driver;
         $this->hostname = $hostname;
         $this->username = $username;
