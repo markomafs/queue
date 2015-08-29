@@ -2,6 +2,9 @@
 
 namespace Queue;
 
+use Queue\Driver\Exception\UnknownDriverException;
+use Queue\Exception\InvalidWrapperClassException;
+
 class DriverManager
 {
     private static $drivers = array(
@@ -18,12 +21,12 @@ class DriverManager
     /**
      * @param string $driverName
      * @return string
-     * @throws QueueException
+     * @throws UnknownDriverException
      */
     private static function getClassName($driverName)
     {
         if (!isset(static::$drivers[$driverName])) {
-            throw QueueException::unknownDriver($driverName, static::getAvailableDrivers());
+            throw new UnknownDriverException($driverName, static::getAvailableDrivers());
         }
         return static::$drivers[$driverName];
     }
@@ -41,7 +44,7 @@ class DriverManager
     /**
      * @param ConfigurationInterface $configuration
      * @return Connection
-     * @throws QueueException
+     * @throws InvalidWrapperClassException
      */
     public static function getConnection(ConfigurationInterface $configuration)
     {
@@ -51,7 +54,7 @@ class DriverManager
 
         $wrapperClass = $configuration->getOption('wrapperClass', 'Queue\Connection');
         if (!is_subclass_of($wrapperClass, 'Queue\Driver\Connection')) {
-            throw QueueException::invalidWrapperClass($wrapperClass);
+            throw new InvalidWrapperClassException($wrapperClass);
         }
 
         return new $wrapperClass($configuration, $driver);

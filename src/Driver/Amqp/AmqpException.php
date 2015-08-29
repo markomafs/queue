@@ -2,7 +2,7 @@
 
 namespace Queue\Driver\Amqp;
 
-use Queue\Driver\AbstractDriverException;
+use Queue\Driver\Exception\AbstractDriverException;
 
 class AmqpException extends AbstractDriverException
 {
